@@ -36,9 +36,9 @@ export default function Home(): React.ReactElement {
               <HexPlatformOverview />
             </main>
              {/* Notebook Intro Section - full width with black bg */}
-              <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] translate-x-[-50%] bg-black">
-                <NotebookIntro />
-              </div>
+              <div className="w-full">
+  <NotebookIntro />
+</div>
 
             {/* Footer */}
             <footer className="w-full">

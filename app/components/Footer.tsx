@@ -16,15 +16,7 @@ const Footer = () => {
         stagger: 0.2,
       });
 
-      const pretzelEmoji = footerRef.current.querySelectorAll('.emoji-bounce');
-      gsap.to(pretzelEmoji, {
-        y: -10,
-        duration: 2,
-        ease: 'power1.inOut',
-        repeat: -1,
-        yoyo: true,
-        stagger: 0.3,
-      });
+      // Bouncing animation removed since emoji is now static
     }
   }, []);
 
@@ -33,9 +25,7 @@ const Footer = () => {
       ref={footerRef}
       className="w-full bg-[#141217] text-[#FAD8C0] pt-12 pb-16"
     >
-      {/* Container flex to center content and right side HitCounter */}
       <div className="max-w-[1200px] mx-auto flex justify-between items-start px-4 sm:px-8 space-x-8">
-        {/* Footer columns container */}
         <div
           className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5
                       gap-6 sm:gap-8 md:gap-10
@@ -73,8 +63,6 @@ const Footer = () => {
 
         {/* HitCounter Box on the right */}
         <div className="hit-counter-container select-none">
-          {/* Full complex HitCounter HTML replicated for all digits */}
-          {/* Example digit wrapper */}
           <div className="HitCounter__DigitWrapper-sc-g45cjz-3 iveCzJ">
             <div className="HitCounter__Col-sc-g45cjz-4 ytQlX">
               <div className="HitCounter__Line-sc-g45cjz-5 jtWfTS"></div>
@@ -90,13 +78,10 @@ const Footer = () => {
               <div className="HitCounter__Line-sc-g45cjz-5 jtWfTS"></div>
             </div>
           </div>
-
-          {/* Add all other digit wrappers here exactly as needed */}
-          {/* ... */}
+          {/* Add more digit wrappers as needed */}
         </div>
       </div>
 
-      {/* Bottom row with copyright and policies */}
       <div
         className={`
           mt-16 pt-6 text-xs text-[#BCAAA4]
@@ -162,7 +147,7 @@ function renderColumn() {
       <h1 className="text-3xl font-bold font-mono mb-2">HEX</h1>
       <p className="text-[#BCAAA4]">
         Made with{' '}
-        <span className="emoji-bounce text-orange-500 inline-block">🥨</span> on{' '}
+        <span className="text-orange-500 inline-block">🥨</span> on{' '}
         <span className="text-blue-400 inline-block">🌍</span>.
       </p>
     </div>
