@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
-const Footer = (): JSX.Element => {
+const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
-  useEffect((): void => {
+  useEffect(() => {
     if (footerRef.current) {
       const columns = footerRef.current.querySelectorAll(".footer-column");
       gsap.from(columns, {
@@ -28,87 +28,74 @@ const Footer = (): JSX.Element => {
     }
   }, []);
 
-  return (
-    <footer
-      ref={footerRef}
-      className="bg-[#141217] text-[#FAD8C0] pt-12 pb-16 border-t-2 border-t-[#574D57]"
-    >
-      <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-5 gap-10 text-sm">
-        <div>
-          <h1 className="text-3xl font-bold font-mono mb-2">HEX</h1>
-          <p className="text-[#BCAAA4]">
-            Made with <span className="emoji text-orange-500 inline-block">🥨</span> on{" "}
-            <span className="emoji text-blue-400 inline-block">🌍</span>.
-          </p>
-        </div>
-
-        <div className="footer-column">
-          <h3 className="text-[#FAD8C0] font-bold mb-2 uppercase text-xs tracking-wider">
-            Company
-          </h3>
-          <ul className="space-y-1">
-            <li>Careers</li>
-            <li>Customers</li>
-            <li>Media kit</li>
-            <li>Newsroom</li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3 className="text-[#FAD8C0] font-bold mb-2 uppercase text-xs tracking-wider">
-            Product
-          </h3>
-          <ul className="space-y-1">
-            <li>Notebooks</li>
-            <li>Explore</li>
-            <li>Hex Magic</li>
-            <li>Enterprise</li>
-            <li>For Teams</li>
-            <li>App Builder</li>
-            <li>Pricing</li>
-            <li>Integrations</li>
-            <li>Security</li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3 className="text-[#FAD8C0] font-bold mb-2 uppercase text-xs tracking-wider">
-            Resources
-          </h3>
-          <ul className="space-y-1">
-            <li>Blog</li>
-            <li>Docs</li>
-            <li>Quickstart</li>
-            <li>Resources</li>
-            <li>Templates</li>
-            <li>Changelog</li>
-            <li>Trust Center</li>
-          </ul>
-        </div>
-
-        <div className="footer-column">
-          <h3 className="text-[#FAD8C0] font-bold mb-2 uppercase text-xs tracking-wider">
-            Contact
-          </h3>
-          <ul className="space-y-1">
-            <li>Support</li>
-            <li>Sales</li>
-            <li>Twitter</li>
-            <li>Email us</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mt-16 pt-6 text-xs text-[#BCAAA4] flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8">
-        <p>© 2025 Hex Technologies Inc.</p>
-        <div className="flex space-x-4 mt-2 md:mt-0">
-          <a href="#">Privacy policy</a>
-          <a href="#">Terms & conditions</a>
-          <a href="#">Modern slavery statement</a>
-        </div>
-      </div>
-    </footer>
+  return React.createElement(
+    'footer',
+    {
+      ref: footerRef,
+      className: 'bg-[#141217] text-[#FAD8C0] pt-12 pb-16 border-t-2 border-t-[#574D57]'
+    },
+    React.createElement(
+      React.Fragment,
+      null,
+      React.createElement(
+        'div',
+        { className: 'max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-5 gap-10 text-sm' },
+        renderColumn('HEX', 'Made with 🥨 on 🌍.', false),
+        renderList('Company', ['Careers', 'Customers', 'Media kit', 'Newsroom']),
+        renderList('Product', ['Notebooks', 'Explore', 'Hex Magic', 'Enterprise', 'For Teams', 'App Builder', 'Pricing', 'Integrations', 'Security']),
+        renderList('Resources', ['Blog', 'Docs', 'Quickstart', 'Resources', 'Templates', 'Changelog', 'Trust Center']),
+        renderList('Contact', ['Support', 'Sales', 'Twitter', 'Email us'])
+      ),
+      React.createElement(
+        'div',
+        { className: 'mt-16 pt-6 text-xs text-[#BCAAA4] flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8' },
+        React.createElement('p', null, '© 2025 Hex Technologies Inc.'),
+        React.createElement(
+          'div',
+          { className: 'flex space-x-4 mt-2 md:mt-0' },
+          React.createElement('a', { href: '#' }, 'Privacy policy'),
+          React.createElement('a', { href: '#' }, 'Terms & conditions'),
+          React.createElement('a', { href: '#' }, 'Modern slavery statement')
+        )
+      )
+    )
   );
 };
+
+function renderColumn(title: string, content: string, isList = true) {
+  if (!isList) {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement('h1', { className: 'text-3xl font-bold font-mono mb-2' }, title),
+      React.createElement(
+        'p',
+        { className: 'text-[#BCAAA4]' },
+        'Made with ',
+        React.createElement('span', { className: 'emoji text-orange-500 inline-block' }, '🥨'),
+        ' on ',
+        React.createElement('span', { className: 'emoji text-blue-400 inline-block' }, '🌍'),
+        '.'
+      )
+    );
+  }
+}
+
+function renderList(title: string, items: string[]) {
+  return React.createElement(
+    'div',
+    { className: 'footer-column' },
+    React.createElement(
+      'h3',
+      { className: 'text-[#FAD8C0] font-bold mb-2 uppercase text-xs tracking-wider' },
+      title
+    ),
+    React.createElement(
+      'ul',
+      { className: 'space-y-1' },
+      ...items.map((item, i) => React.createElement('li', { key: `${title}-${i}` }, item))
+    )
+  );
+}
 
 export default Footer;
