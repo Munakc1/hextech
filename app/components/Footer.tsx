@@ -16,8 +16,9 @@ const Footer = () => {
         stagger: 0.2,
       });
 
-      const emojis = footerRef.current.querySelectorAll(".emoji");
-      gsap.to(emojis, {
+      // Only animate the 🥨 emoji
+      const pretzelEmoji = footerRef.current.querySelectorAll(".emoji-bounce");
+      gsap.to(pretzelEmoji, {
         y: -10,
         duration: 2,
         ease: "power1.inOut",
@@ -32,7 +33,7 @@ const Footer = () => {
     'footer',
     {
       ref: footerRef,
-      className: 'bg-[#141217] text-[#FAD8C0] pt-12 pb-16 border-t-2 border-t-[#574D57]'
+      className: 'bg-[#141217] text-[#FAD8C0] pt-12 pb-16 border-t-1 border-t-[#574D57]'
     },
     React.createElement(
       React.Fragment,
@@ -40,7 +41,7 @@ const Footer = () => {
       React.createElement(
         'div',
         { className: 'max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-5 gap-10 text-sm' },
-        renderColumn('HEX', 'Made with 🥨 on 🌍.', false),
+        renderColumn(),
         renderList('Company', ['Careers', 'Customers', 'Media kit', 'Newsroom']),
         renderList('Product', ['Notebooks', 'Explore', 'Hex Magic', 'Enterprise', 'For Teams', 'App Builder', 'Pricing', 'Integrations', 'Security']),
         renderList('Resources', ['Blog', 'Docs', 'Quickstart', 'Resources', 'Templates', 'Changelog', 'Trust Center']),
@@ -62,25 +63,25 @@ const Footer = () => {
   );
 };
 
-function renderColumn(title: string, content: string, isList = true) {
-  if (!isList) {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement('h1', { className: 'text-3xl font-bold font-mono mb-2' }, title),
-      React.createElement(
-        'p',
-        { className: 'text-[#BCAAA4]' },
-        'Made with ',
-        React.createElement('span', { className: 'emoji text-orange-500 inline-block' }, '🥨'),
-        ' on ',
-        React.createElement('span', { className: 'emoji text-blue-400 inline-block' }, '🌍'),
-        '.'
-      )
-    );
-  }
+// Column for HEX title and emojis
+function renderColumn() {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement('h1', { className: 'text-3xl font-bold font-mono mb-2' }, 'HEX'),
+    React.createElement(
+      'p',
+      { className: 'text-[#BCAAA4]' },
+      'Made with ',
+      React.createElement('span', { className: 'emoji-bounce text-orange-500 inline-block' }, '🥨'),
+      ' on ',
+      React.createElement('span', { className: 'text-blue-400 inline-block' }, '🌍'),
+      '.'
+    )
+  );
 }
 
+// Generic list section
 function renderList(title: string, items: string[]) {
   return React.createElement(
     'div',
