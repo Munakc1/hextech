@@ -23,9 +23,9 @@ const announcements = [
   },
 ];
 
-const RightArrowIcon = () => (
+const RightArrowIcon: React.FC = () => (
   <svg
-    className="ml-1 w-2.5 h-1.5 inline-block"
+    className="ml-1 w-3 h-2 inline-block"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 10 7"
     aria-hidden="true"
@@ -44,7 +44,7 @@ const AnnouncementBar: React.FC = () => {
     if (!containerRef.current || !contentRef.current) return;
 
     const content = contentRef.current;
-    content.innerHTML += content.innerHTML;
+    content.innerHTML += content.innerHTML; // duplicate content for infinite scroll
     const totalWidth = content.scrollWidth / 2;
 
     gsap.to(content, {
@@ -69,26 +69,42 @@ const AnnouncementBar: React.FC = () => {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center font-semibold whitespace-nowrap mx-8 hover:underline"
+        className="
+          flex items-center font-semibold whitespace-nowrap
+          mx-4 sm:mx-6 md:mx-8
+          hover:underline
+          text-xs sm:text-xs md:text-sm
+        "
       >
-        <span className="mr-1 text-xl text-white" aria-hidden="true">
+        <span
+          className="mr-1 text-base sm:text-lg text-white"
+          aria-hidden="true"
+        >
           {emoji}
         </span>
-        <span className="text-white font-bold text-base sm:text-lg mr-1">
+        <span className="text-white font-bold mr-1 text-xs sm:text-sm md:text-sm">
           {heading}
         </span>
-        <span className="text-[#f8bbd0]">{text}</span>
+        <span className="text-[#f8bbd0] text-xs sm:text-sm md:text-sm">
+          {text}
+        </span>
         <RightArrowIcon />
       </a>
     ));
 
   return (
     <div
-      className="announcement-bar bg-[#424242] h-10 flex items-center overflow-hidden relative"
+      className="
+        announcement-bar
+        bg-[#424242]
+        h-6 sm:h-7 md:h-8
+        flex items-center overflow-hidden relative
+        px-2 sm:px-4 md:px-6
+        border border-[#d7ccc8]
+      "
       aria-label="announcements"
       role="marquee"
       ref={containerRef}
-      style={{ border: "1px solid #d7ccc8" }}
     >
       <div
         className="announcement-content flex whitespace-nowrap"

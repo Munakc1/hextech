@@ -1,46 +1,52 @@
 import React from "react";
 import Footer from "./components/Footer";
 import AnnouncementBar from "./components/AnnouncementBar";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import TrustedBySection from "./components/TrustedBySection";
+import HexPlatformOverview from "./components/HexPlatformOverview";
+import NotebookIntro from "./components/NotebookIntro"; // ✅ New import
 
 export default function Home(): React.ReactElement {
-  return React.createElement(
-    "div",
-    { className: "min-h-screen bg-black p-[35px]" },
-    // Announcement bar at the top
-    React.createElement(AnnouncementBar),
-    // Main bordered container
-    React.createElement(
-      "div",
-      { className: "border border-black rounded-md" },
-      React.createElement(
-        "div",
-        {
-          className: "border rounded-md",
-          style: { borderColor: "#bcaaa4" },
-        },
-        React.createElement(
-          "div",
-          {
-            className:
-              "bg-black text-black grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans",
-          },
-          // Main content area (row 2)
-          React.createElement(
-            "main",
-            {
-              className:
-                "flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-full",
-            },
-            React.createElement("p", { className: "text-white" }, "Hello World")
-          ),
-          // Footer (row 3)
-          React.createElement(
-            "footer",
-            { className: "row-start-3 w-full" },
-            React.createElement(Footer)
-          )
-        )
-      )
-    )
+  return (
+    <div className="min-h-screen bg-[#141217] px-[35px] pt-[35px] pb-[5px]">
+      {/* Top Announcement */}
+      <AnnouncementBar />
+
+      <div className="bg-black mb-[35px] rounded-md">
+        <div className="border border-[#bcaaa4] rounded-md overflow-hidden">
+          <div className="rounded-b-md">
+            {/* Top Nav */}
+            <Navbar />
+
+            {/* Main content container */}
+            <main className="bg-[#06040a] text-white flex flex-col gap-[32px] items-center justify-center w-full">
+
+              {/* Hero Section */}
+              <Hero />
+
+             
+
+              {/* Logo Grid Section - full width */}
+              <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] translate-x-[-50%]">
+                <TrustedBySection />
+              </div>
+
+              {/* Analytics, AI, and Apps Section */}
+              <HexPlatformOverview />
+            </main>
+             {/* Notebook Intro Section - full width with black bg */}
+              <div className="w-screen relative left-1/2 right-1/2 -mx-[50vw] translate-x-[-50%] bg-black">
+                <NotebookIntro />
+              </div>
+
+            {/* Footer */}
+            <footer className="w-full">
+              <Footer />
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
