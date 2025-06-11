@@ -1,6 +1,7 @@
 'use client';
+
 import React, { useEffect, useRef } from 'react';
-import { Grid, Box, Typography, Card, CardContent, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, Button } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import gsap from 'gsap';
@@ -26,100 +27,102 @@ const getBorderRadius = (index: number, length: number): string => {
   return '0';
 };
 
-// Reusable Card component
+// LovedCard component without Grid
 const LovedCard: React.FC<CardItem & { index: number; length: number }> = ({
   title,
   description,
   index,
   length,
-}) => (
-  <Grid
-    item
-    xs={12}
-    sm={6}
-    md={3}
-    sx={{
-      borderRight: index !== length - 1 ? '1px solid #00bcd4' : 'none',
-      borderRadius: getBorderRadius(index, length),
-      display: 'flex',
-      justifyContent: 'center',
-    }}
-  >
-    <Card
-      tabIndex={-1}
+}) => {
+  return (
+    <Box
+      component="div"
       sx={{
-        width: 300,
-        height: 340,
-        backgroundColor: 'transparent',
-        color: '#fff',
-        boxShadow: 'none',
+        borderRight: index !== length - 1 ? '1px solid #00bcd4' : 'none',
+        borderRadius: getBorderRadius(index, length),
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        px: 3,
-        py: 4,
-        textAlign: 'center',
-        transition: 'all 0.3s ease-in-out',
-        outline: 'none',
-        cursor: 'pointer',
-        position: 'relative',
-        border: 'none',
-        '&:hover': {
-          backgroundColor: '#222',
-          transform: 'scale(1.05)',
-          borderColor: '#00bcd4',
-          boxShadow: '0 0 10px #00bcd4',
-          zIndex: 10,
-        },
-        '&:hover .hover-btn': {
-          opacity: 1,
-          transform: 'translateY(0)',
-        },
+        justifyContent: 'center',
+        flex: '1 1 0', // flex grow, shrink, basis for equal widths
+        minWidth: 250,
+        px: 1,
       }}
     >
-      <StarIcon
+      <Card
+        tabIndex={-1}
         sx={{
-          position: 'absolute',
-          top: 16,
-          left: 16,
-          color: '#ffeb3b',
-          fontSize: '1.5rem',
-        }}
-      />
-      <CardContent sx={{ padding: 0, mt: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant="body2" mb={2}>
-          {description}
-        </Typography>
-      </CardContent>
-      <Box
-        className="hover-btn"
-        sx={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16,
-          opacity: 0,
-          transform: 'translateY(10px)',
+          width: 300,
+          height: 340,
+          backgroundColor: 'transparent',
+          color: '#fff',
+          boxShadow: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          px: 3,
+          py: 4,
+          textAlign: 'center',
           transition: 'all 0.3s ease-in-out',
+          outline: 'none',
+          cursor: 'pointer',
+          position: 'relative',
+          border: 'none',
+          '&:hover': {
+            backgroundColor: '#222',
+            transform: 'scale(1.05)',
+            borderColor: '#00bcd4',
+            boxShadow: '0 0 10px #00bcd4',
+            zIndex: 10,
+          },
+          '&:hover .hover-btn': {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
         }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          endIcon={<ArrowForwardIosIcon />}
-          aria-label={`View details about ${title}`}
+        <StarIcon
+          sx={{
+            position: 'absolute',
+            top: 16,
+            left: 16,
+            color: '#ffeb3b',
+            fontSize: '1.5rem',
+          }}
+        />
+        <CardContent sx={{ padding: 0, mt: 3 }}>
+          <Typography variant="h6" gutterBottom>
+            {title}
+          </Typography>
+          <Typography variant="body2" mb={2}>
+            {description}
+          </Typography>
+        </CardContent>
+        <Box
+          className="hover-btn"
+          sx={{
+            position: 'absolute',
+            bottom: 16,
+            right: 16,
+            opacity: 0,
+            transform: 'translateY(10px)',
+            transition: 'all 0.3s ease-in-out',
+          }}
         >
-          View
-        </Button>
-      </Box>
-    </Card>
-  </Grid>
-);
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            endIcon={<ArrowForwardIosIcon />}
+            aria-label={`View details about ${title}`}
+          >
+            View
+          </Button>
+        </Box>
+      </Card>
+    </Box>
+  );
+};
 
-// Main LovedSection component
+// Main LovedSection component without Grid
 const LovedSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -149,11 +152,10 @@ const LovedSection: React.FC = () => {
         Hex helps companies of all sizes do more with their data.
       </Typography>
 
-      <Grid
-        container
-        spacing={0}
-        justifyContent="center"
+      <Box
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
           width: '100%',
           maxWidth: 1240,
           mx: 'auto',
@@ -161,6 +163,7 @@ const LovedSection: React.FC = () => {
           borderRadius: 2,
           overflow: 'hidden',
           backgroundColor: '#121212',
+          flexWrap: 'wrap', // allow wrapping on small screens
         }}
       >
         {cardData.map((card, index) => (
@@ -172,7 +175,7 @@ const LovedSection: React.FC = () => {
             length={cardData.length}
           />
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };
