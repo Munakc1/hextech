@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+'use client';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const announcements = [
   {
@@ -30,7 +30,7 @@ const RightArrowIcon: React.FC = () => (
     viewBox="0 0 10 7"
     aria-hidden="true"
     focusable="false"
-    style={{ fill: "yellow" }}
+    style={{ fill: 'yellow' }}
   >
     <path d="m6.146 5.146-.353.354.707.707.354-.353zM8.5 3.5l.354.354.353-.354-.353-.354zM6.854 1.146 6.5.793l-.707.707.353.354zm0 4.708 2-2-.708-.708-2 2zm2-2.708-2-2-.708.708 2 2zM8.5 3H0v1h8.5z" />
   </svg>
@@ -39,18 +39,19 @@ const RightArrowIcon: React.FC = () => (
 const AnnouncementBar: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null); // 👈 Store animation reference
 
   useEffect(() => {
     if (!containerRef.current || !contentRef.current) return;
 
     const content = contentRef.current;
-    content.innerHTML += content.innerHTML; // duplicate content for infinite scroll
+    content.innerHTML += content.innerHTML; // duplicate for infinite loop
     const totalWidth = content.scrollWidth / 2;
 
-    gsap.to(content, {
+    tweenRef.current = gsap.to(content, {
       x: -totalWidth,
       duration: 30,
-      ease: "linear",
+      ease: 'linear',
       repeat: -1,
       modifiers: {
         x: (x) => `${parseFloat(x) % totalWidth}px`,
@@ -58,9 +59,17 @@ const AnnouncementBar: React.FC = () => {
     });
 
     return () => {
-      gsap.killTweensOf(content);
+      if (tweenRef.current) tweenRef.current.kill();
     };
   }, []);
+
+  const handleMouseEnter = () => {
+    if (tweenRef.current) tweenRef.current.pause();
+  };
+
+  const handleMouseLeave = () => {
+    if (tweenRef.current) tweenRef.current.resume();
+  };
 
   const renderAnnouncements = () =>
     announcements.map(({ emoji, heading, text, url }, i) => (
@@ -76,10 +85,7 @@ const AnnouncementBar: React.FC = () => {
           text-xs sm:text-xs md:text-sm
         "
       >
-        <span
-          className="mr-1 text-base sm:text-lg text-white"
-          aria-hidden="true"
-        >
+        <span className="mr-1 text-base sm:text-lg text-white" aria-hidden="true">
           {emoji}
         </span>
         <span className="text-white font-bold mr-1 text-xs sm:text-sm md:text-sm">
@@ -96,21 +102,23 @@ const AnnouncementBar: React.FC = () => {
     <div
       className="
         announcement-bar
-        bg-[#424242]
+        bg-[#263238]
         h-6 sm:h-7 md:h-8
         flex items-center overflow-hidden relative
-        px-2 sm:px-4 md:px-6
-        border border-[#d7ccc8]
+        px-0.5 sm:px-4 md:px-6
+        border border-[#646262]
       "
       aria-label="announcements"
       role="marquee"
       ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         className="announcement-content flex whitespace-nowrap"
         aria-hidden="true"
         ref={contentRef}
-        style={{ willChange: "transform" }}
+        style={{ willChange: 'transform' }}
       >
         {renderAnnouncements()}
       </div>

@@ -7,7 +7,7 @@ import Hero from "./components/Hero";
 import TrustedBySection from "./components/TrustedBySection";
 import HexPlatformOverview from "./components/HexPlatformOverview";
 import NotebookIntro from "./components/NotebookIntro";
-import { Text } from "./components/Text"; // ✅ Your new section
+ // ✅ Your new section
 import DisNotebook from "./components/DisNotebook";
 import CoreFeatures from "./components/CoreFeatures";
 import Testimonials from './components/Testimonials';
@@ -49,7 +49,7 @@ export default function Home(): React.ReactElement {
               <HexPlatformOverview />
 
               {/* ✅ Insert the new Text Section */}
-              <Text />
+             
             </main>
 
             {/* Notebook Intro Section */}

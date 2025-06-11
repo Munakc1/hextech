@@ -108,7 +108,12 @@ const Navbar = () => {
                   <Icon className="text-md" />
                   <span>{item.label}</span>
                   {hasDropdown && (
-                    <PiCaretDownLight className="ml-1 text-sm" aria-hidden="true" />
+                    <PiCaretDownLight
+                      className={`ml-1 text-sm transition-transform duration-300 ${
+                        openDropdown === item.label ? "rotate-0" : "rotate-180"
+                      }`}
+                      aria-hidden="true"
+                    />
                   )}
                 </button>
 
